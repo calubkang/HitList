@@ -1,0 +1,23 @@
+.header-row {
+  font-weight: 800;
+}
+
+/* -------------------------------------------------
+  4 LISTS
+------------------------------------------------- */
+
+.need-to-reach-out {
+  background-color: rgb(180, 180, 180);
+}
+
+.reached-out {
+  background-color: rgb(213, 188, 133);
+}
+
+.landed-interview {
+  background-color: rgb(151, 191, 218);
+}
+
+.finished-interview {
+  background-color: rgb(168, 209, 152);
+}
