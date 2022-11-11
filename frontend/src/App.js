@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import FileBase64 from 'react-file-base64'
 import listService from './services/list'
 import Row from './components/Row'
 import NewItemForm from './components/NewItemForm'
+import RowHeader from './components/RowHeader'
 
 
 
@@ -70,10 +70,12 @@ function App() {
   }
 
   const deleteHit = (hit) => {
-    listService.deleteHit(hit)
-      .then(deletedHit => {
-        setListItems(listItems.filter(hit => hit.id !== deletedHit.id))
-      })
+    if(window.confirm('Delete Position?')) {
+      listService.deleteHit(hit)
+        .then(deletedHit => {
+          setListItems(listItems.filter(hit => hit.id !== deletedHit.id))
+        })
+    }
   }
 
   const toggleReach = (hit) => {
@@ -100,7 +102,8 @@ function App() {
       })
   }
 
-  const addResume = (hit) => {
+  const addResume = (hit) => (e) => {
+    e.preventDefault()
     const updatedHit = { ...hit, resume: resume, reachedOut: !hit.reachedOut }
     listService.updateHit(hit, updatedHit)
       .then(updatedHit => {
@@ -138,24 +141,19 @@ function App() {
       <h1 className='container mt-3 text-center display-2'>HitList</h1>
 
       <div className="accordion" id="accordionExample">
+        {/* NEED TO APPLY */}
         <div className="accordion-item">
+          {/* Header */}
           <h2 className="accordion-header" id="headingOne">
             <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Need to Apply
+              Need to Apply ({firstList.length})
             </button>
           </h2>
           <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div className="accordion-body">
               <table className='container'>
                 <tbody>
-                  <tr className='header-row'>
-                    <td>Company</td>
-                    <td>Position</td>
-                    <td>Contact</td>
-                    <td>Email</td>
-                    <td>Resume</td>
-                    <td>Actions</td>
-                  </tr>
+                  <RowHeader />
                   {firstList.map(hit =>
                     <Row
                       key={hit.id}
@@ -164,7 +162,7 @@ function App() {
                       updateButtonLabel='Reached Out!'
                       onUpdate={() => toggleReach(hit)}
                       className='need-to-reach-out'
-                      onSubmit={() => addResume(hit)}
+                      onSubmit={addResume(hit)}
                       resume={resume}
                       handleResumeChange={handleResumeChange}
                     />
@@ -174,27 +172,22 @@ function App() {
             </div>
           </div>
         </div>
+        {/* WAITING TO HEAR BACK */}
         <div className="accordion-item">
+          {/* Header */}
           <h2 className="accordion-header" id="headingTwo">
             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Waiting to hear back
+              Waiting to hear back ({reachedList.length})
             </button>
           </h2>
           <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
             <div className="accordion-body">
               <table className='container'>
                 <tbody>
-                  <tr className='header-row'>
-                    <td>Company</td>
-                    <td>Position</td>
-                    <td>Contact</td>
-                    <td>Email</td>
-                    <td>Resume</td>
-                    <td>Actions</td>
-                  </tr>
+                  <RowHeader />
                   {reachedList.map(hit =>
                     <Row
-                      key={hit.id}
+                      key={hit.id}                      
                       hit={hit}
                       onDelete={() => deleteHit(hit)}
                       updateButtonLabel='Got an interview!'
@@ -207,24 +200,19 @@ function App() {
             </div>
           </div>
         </div>
+        {/* INTERVIEW PREP */}
         <div className="accordion-item">
+          {/* Header */}
           <h2 className="accordion-header" id="headingThree">
             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              Interview Prep
+              Interview Prep ({interviewList.length})
             </button>
           </h2>
           <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
             <div className="accordion-body">
               <table className='container'>
                 <tbody>
-                  <tr className='header-row'>
-                    <td>Company</td>
-                    <td>Position</td>
-                    <td>Contact</td>
-                    <td>Email</td>
-                    <td>Resume</td>
-                    <td>Actions</td>
-                  </tr>
+                  <RowHeader />
                   {interviewList.map(hit =>
                     <Row
                       key={hit.id}
@@ -240,24 +228,19 @@ function App() {
             </div>
           </div>
         </div>
+        {/* WAITING FOR FINAL DECISION */}
         <div className="accordion-item">
+          {/* Header */}
           <h2 className="accordion-header" id="headingFour">
             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-              Waiting for Final Decision
+              Waiting for Final Decision ({finishedList.length})
             </button>
           </h2>
           <div id="collapseFour" className="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
             <div className="accordion-body">
               <table className='container'>
                 <tbody>
-                  <tr className='header-row'>
-                    <td>Company</td>
-                    <td>Position</td>
-                    <td>Contact</td>
-                    <td>Email</td>
-                    <td>Resume</td>
-                    <td>Actions</td>
-                  </tr>
+                  <RowHeader />
                   {finishedList.map(hit =>
                     <Row
                       key={hit.id}

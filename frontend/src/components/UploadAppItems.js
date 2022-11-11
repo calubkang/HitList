@@ -17,7 +17,7 @@ const UploadAppItems = ({resume, handleResumeChange, onSubmit}) => {
               <div>
                 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                   <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <input type="submit" value="Submit" className="btn btn-primary" ></input>
+                  <button type="submit" className="btn btn-primary">Save</button>
                 </div>
               </div>
             </form>
