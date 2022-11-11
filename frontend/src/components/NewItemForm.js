@@ -33,9 +33,9 @@ const NewItemForm = ({ onSubmit, newCompName, handleCompChange, newPos, handlePo
                   <label htmlFor='email' className="form-label">Email</label>
                 </div>
                 <div>
-                  <div onClick={hook} className="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <div  className="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" className="btn btn-primary" onClick={hook}>Save changes</button>
+                    <button type="submit" className="btn btn-primary" >Save changes</button>
                   </div>
                 </div>
               </form>

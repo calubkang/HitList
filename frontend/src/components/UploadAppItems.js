@@ -1,4 +1,4 @@
-const UploadAppItems = (props) => {
+const UploadAppItems = ({resume, handleResumeChange, onSubmit}) => {
   return (
     <div className="modal fade" id="upload-app-items" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
@@ -8,10 +8,10 @@ const UploadAppItems = (props) => {
             <button type="button" className="btn btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div className="modal-body">
-            <form action="/upload" method="POST" encType="multipart/form-data" className="container col-10 mt-4">
-              <div className="mb-3">
-                <label htmlFor="file" className="form-label custom-file-label">Upload Resume for this Role</label>
-                <input className="form-control custom-file-input" type="file" name="file" id="file"/>
+            <form onSubmit={onSubmit} className="container col-10 mt-4">
+              <div className="form-floating mb-3">
+                <input className="form-control" id='resume' placeholder=' ' value={resume} onChange={handleResumeChange} />
+                <label htmlFor='resume'>Resume/CV Link</label>
               </div>
               
               <div>

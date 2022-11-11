@@ -7,18 +7,16 @@ const Row = (props) => {
         <td>{props.hit.position}</td>
         <td>{props.hit.contact}</td>
         <td>{props.hit.email}</td>
+        <td className='text-center'><i className="fa-regular fa-file"></i></td>
         <td>
           <button  type="button" className="btn btn-success" data-toggle="modal" data-target="#upload-app-items">
             Apply to Position
           </button>
         </td>
         <td>
-          <button onClick={props.onDelete}>
-            delete
-          </button>
+          <button onClick={props.onDelete} className="btn btn-close" aria-label="Close"/>
         </td>
-        <td><UploadAppItems onUpdate={props.onUpdate}/></td>
-        
+        <td><UploadAppItems onSubmit={props.onSubmit} handleResumeChange={props.handleResumeChange} resume={props.resume}/></td>
       </tr>
     )
   } else if (props.onUpdate && props.updateButtonLabel) {
@@ -28,8 +26,10 @@ const Row = (props) => {
         <td>{props.hit.position}</td>
         <td>{props.hit.contact}</td>
         <td>{props.hit.email}</td>
-        <td><button onClick={props.onUpdate}>{props.updateButtonLabel}</button></td>
-        <td><button onClick={props.onDelete}>delete</button></td>
+        <td className='text-center'><a href={props.hit.resume} target="_blank"><i className="fas fa-file"></i></a></td>
+        <td><button onClick={props.onUpdate} className="btn btn-primary">{props.updateButtonLabel}</button></td>
+        <td><button onClick={props.onDelete} className="btn btn-close"
+          aria-label="Close"/></td>
       </tr>
     )
   } else {
@@ -39,7 +39,10 @@ const Row = (props) => {
         <td>{props.hit.position}</td>
         <td>{props.hit.contact}</td>
         <td>{props.hit.email}</td>
-        <td><button onClick={props.onDelete}>delete</button></td>
+        <td className='text-center'><a href={props.hit.resume} target="_blank"><i className="fas fa-file"></i></a></td>
+        <td></td>
+        <td><button onClick={props.onDelete} className="btn btn-close"
+          aria-label="Close"/></td>
       </tr>
     )
   }

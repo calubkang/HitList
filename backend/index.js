@@ -35,7 +35,8 @@ app.post('/api/hitlist', (request, response) => {
     email: body.email,
     reachedOut: body.reachedOut,
     interviewScheduled: body.interviewScheduled,
-    interviewFinished: body.interviewFinished
+    interviewFinished: body.interviewFinished,
+    resume: ''
   })
   newHit.save().then(savedHit => {
     response.json(savedHit)
@@ -51,7 +52,8 @@ app.put('/api/hitlist/:id', (request, response) => {
     email: body.email,
     reachedOut: body.reachedOut,
     interviewScheduled: body.interviewScheduled,
-    interviewFinished: body.interviewFinished
+    interviewFinished: body.interviewFinished,
+    resume: body.resume
   }
   Hit.findByIdAndUpdate(request.params.id, hit, { new: true })
     .then(updatedHit => response.json(updatedHit))

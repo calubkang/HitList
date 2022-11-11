@@ -10,6 +10,7 @@ const hitSchema = new mongoose.Schema({
   reachedOut: Boolean,
   interviewScheduled: Boolean,
   interviewFinished: Boolean,
+  resume: String
 })
 
 hitSchema.set('toJSON', {

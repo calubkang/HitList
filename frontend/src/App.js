@@ -17,7 +17,7 @@ function App() {
   const [newPos, setPos] = useState('')
   const [newContactName, setContactName] = useState('')
   const [newEmail, setEmail] = useState('')
-  const [newFile, setFile] = useState('')
+  const [resume, setResume] = useState('')
 
   // --------------------------------------------------
   // ON PAGE LOAD
@@ -100,6 +100,14 @@ function App() {
       })
   }
 
+  const addResume = (hit) => {
+    const updatedHit = {...hit, resume: resume, reachedOut: !hit.reachedOut}
+    listService.updateHit(hit, updatedHit)
+    .then(updatedHit => {
+      setListItems(listItems.map(hit => hit.id !== updatedHit.id ? hit : updatedHit))
+    })
+  }
+
   // --------------------------------------------------
   // FORM HANDLERS
   // --------------------------------------------------
@@ -116,8 +124,8 @@ function App() {
   const handleEmailChange = (event) => {
     setEmail(event.target.value)
   }
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0])
+  const handleResumeChange = (event) => {
+    setResume(event.target.value)
   }
 
   // --------------------------------------------------
@@ -136,6 +144,8 @@ function App() {
             <td>Position</td>
             <td>Contact</td>
             <td>Email</td>
+            <td>Resume</td>
+            <td>Actions</td>
           </tr>
           {firstList.map(hit =>
             <Row
@@ -145,6 +155,9 @@ function App() {
               updateButtonLabel='Reached Out!'
               onUpdate={() => toggleReach(hit)}
               className='need-to-reach-out'
+              onSubmit={() => addResume(hit)}
+              resume={resume}
+              handleResumeChange={handleResumeChange}
             />
           )}
           {reachedList.map(hit =>
