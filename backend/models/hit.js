@@ -10,7 +10,11 @@ const hitSchema = new mongoose.Schema({
   reachedOut: Boolean,
   interviewScheduled: Boolean,
   interviewFinished: Boolean,
-  resume: String
+  resume: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 
 hitSchema.set('toJSON', {

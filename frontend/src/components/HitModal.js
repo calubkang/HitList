@@ -29,7 +29,6 @@ const HitModal = ({ hit}) => {
                   <div>{hit.position}</div>
                   <h5 className="mt-4">Contact</h5>
                   <div>{hit.contact}</div>
-                  <h5 className="mt-4">Contact Email</h5>
                   <div>{hit.email || email}</div>
                   <h5 className="mt-4">Resume</h5>
                   <h2><a href={hit.resume} target="_blank"><i className="fas fa-file"></i></a></h2>

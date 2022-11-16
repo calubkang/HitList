@@ -1,0 +1,11 @@
+post http://localhost:3001/api/hitlist
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNhbGVia2FuZyIsImlkIjoiNjM3MzIwMzNhOGZiNzE0NTU2ODQ0Yzg3IiwiaWF0IjoxNjY4NTU0NzE3fQ.Uc_TGyEOzSM3inamZyrK6auyBMZKy9T0mT0QrMmkfcY
+
+{ 
+  "company": "Apple",
+  "position": "Software Developer",
+  "contact": "Ur Mom",
+  "email": "mom@mom.com"
+  
+}

@@ -3,6 +3,7 @@ import listService from './services/list'
 import Row from './components/Row'
 import NewItemForm from './components/NewItemForm'
 import RowHeader from './components/RowHeader'
+import loginService from './services/login'
 
 
 
@@ -18,6 +19,9 @@ function App() {
   const [newContactName, setContactName] = useState('')
   const [newEmail, setEmail] = useState('')
   const [resume, setResume] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
 
   // --------------------------------------------------
   // ON PAGE LOAD
@@ -39,6 +43,25 @@ function App() {
   const reachedList = listItems.filter(hit => hit.reachedOut && !hit.interviewScheduled && !hit.interviewFinished)
   const interviewList = listItems.filter(hit => hit.interviewScheduled && !hit.interviewFinished)
   const finishedList = listItems.filter(hit => hit.interviewFinished)
+
+  // --------------------------------------------------
+  // LOGIN REQUESTS
+  // --------------------------------------------------
+
+  const handleLogin = async (event) => {
+    event.preventDefault()
+
+    try {
+      const user = await loginService.login({
+        username, password,
+      })
+      setUser(user)
+      setUsername('')
+      setPassword('')
+    } catch {
+      
+    }
+  }
 
   // --------------------------------------------------
   // AXIOS REQUESTS
@@ -70,7 +93,7 @@ function App() {
   }
 
   const deleteHit = (hit) => {
-    if(window.confirm('Delete Position?')) {
+    if (window.confirm('Delete Position?')) {
       listService.deleteHit(hit)
         .then(deletedHit => {
           setListItems(listItems.filter(hit => hit.id !== deletedHit.id))
@@ -140,6 +163,28 @@ function App() {
 
       <h1 className='container mt-3 text-center display-2'>HitList</h1>
 
+      <form onSubmit={handleLogin}>
+        <div>
+          username: 
+          <input
+            type="text"
+            value={username}
+            name="Username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>
+          password: 
+          <input
+            type="password"
+            value={password}
+            name="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+        <button type="submit">login</button>
+      </form>
+
       <div className="accordion" id="accordionExample">
         {/* NEED TO APPLY */}
         <div className="accordion-item">
@@ -187,7 +232,7 @@ function App() {
                   <RowHeader />
                   {reachedList.map(hit =>
                     <Row
-                      key={hit.id}                      
+                      key={hit.id}
                       hit={hit}
                       onDelete={() => deleteHit(hit)}
                       updateButtonLabel='Got an interview!'
