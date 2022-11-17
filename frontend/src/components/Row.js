@@ -19,13 +19,21 @@ const Row = (props) => {
         <td>
           <button onClick={props.onDelete} className="btn btn-close" aria-label="Close" />
         </td>
-        <td><UploadAppItems onSubmit={props.onSubmit} handleResumeChange={props.handleResumeChange} resume={props.resume} /></td>
+        <td>
+          <UploadAppItems
+            onSubmit={props.onSubmit}
+            handleResumeChange={props.handleResumeChange}
+            resume={props.resume}
+            handleJobDescriptionChange={props.handleJobDescriptionChange}
+            jobDescription={props.jobDescription}
+          />
+        </td>
       </tr>
     )
   } else if (props.onUpdate && props.updateButtonLabel) {
     return (
       <tr className={props.className}>
-        <HitModal hit={props.hit}/>
+        <HitModal hit={props.hit} />
         <td>{props.hit.company}</td>
         <td>{props.hit.position}</td>
         <td>{props.hit.contact}</td>

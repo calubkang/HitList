@@ -13,7 +13,7 @@ usersRouter.get('/', async (request, response) => {
     interviewFinished: 1,
     resume: 1,
 })
-  response.json(users)
+  response.json(users) 
 })
 
 usersRouter.post('/', async (request, response) => {
@@ -34,10 +34,23 @@ usersRouter.post('/', async (request, response) => {
     name,
     passwordHash,
   })
+  const userForToken = {
+    username: user.username,
+    id: user._id,
+  }
+
+  const token = jwt.sign(
+    userForToken,
+    process.env.SECRET,
+    { expiresIn: 60 * 60 }
+  )
 
   const savedUser = await user.save()
 
-  response.status(201).json(savedUser)
+  response
+    .status(200)
+    .send({ token, username: user.username, name: user.name })
+
 })
 
 module.exports = usersRouter

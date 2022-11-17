@@ -13,8 +13,14 @@ const getTokenFrom = request => {
 }
 
 hitsRouter.get('/', async (request, response) => {
-  const hitList = await Hit.find({}).populate('user', { username: 1, name: 1 })
-  response.json(hitList)
+
+  const token = request.headers.authorization
+
+  if (token) {
+    const decodedToken = jwt.verify(token.substring(7), process.env.SECRET)
+    const hitList = await Hit.find({ user: decodedToken.id }).populate('user', { username: 1, name: 1 })
+    response.json(hitList)
+  }
 })
 
 hitsRouter.post('/', async (request, response, next) => {
@@ -36,7 +42,8 @@ hitsRouter.post('/', async (request, response, next) => {
     reachedOut: body.reachedOut,
     interviewScheduled: body.interviewScheduled,
     interviewFinished: body.interviewFinished,
-    resume: ''
+    resume: '',
+    jobDescription: '',
   })
   const savedHit = await newHit.save()
   user.hits = user.hits.concat(savedHit._id)
@@ -54,7 +61,8 @@ hitsRouter.put('/:id', (request, response) => {
     reachedOut: body.reachedOut,
     interviewScheduled: body.interviewScheduled,
     interviewFinished: body.interviewFinished,
-    resume: body.resume
+    resume: body.resume,
+    jobDescription: body.jobDescription
   }
   Hit.findByIdAndUpdate(request.params.id, hit, { new: true })
     .then(updatedHit => response.json(updatedHit))

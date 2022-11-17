@@ -11,6 +11,7 @@ const hitSchema = new mongoose.Schema({
   interviewScheduled: Boolean,
   interviewFinished: Boolean,
   resume: String,
+  jobDescription: String,
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

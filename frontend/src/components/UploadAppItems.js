@@ -1,6 +1,6 @@
-const UploadAppItems = ({resume, handleResumeChange, onSubmit}) => {
+const UploadAppItems = ({ resume, handleResumeChange, onSubmit, jobDescription, handleJobDescriptionChange }) => {
   return (
-    <div className="modal fade" id="upload-app-items" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div className="modal modal-lg fade" id="upload-app-items" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header">
@@ -13,7 +13,10 @@ const UploadAppItems = ({resume, handleResumeChange, onSubmit}) => {
                 <input className="form-control" id='resume' placeholder=' ' value={resume} onChange={handleResumeChange} />
                 <label htmlFor='resume'>Resume/CV Link</label>
               </div>
-              
+              <div className="form-floating mb-3">
+                <textarea className="form-control" id='jobDescription' placeholder=' ' value={jobDescription} onChange={handleJobDescriptionChange} style={{height: '300px'}} />
+                <label htmlFor='jobDescription'>Job Description</label>
+              </div>
               <div>
                 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                   <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>

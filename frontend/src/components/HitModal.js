@@ -20,7 +20,8 @@ const HitModal = ({ hit}) => {
             <div className="modal-body">
               <div className="row">
                 <div className="col-8">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque totam vel, atque autem nam esse qui excepturi repudiandae nulla! Maxime odit inventore quaerat harum reiciendis blanditiis debitis rerum, ut sapiente.
+                  Job Description:
+                  <div>{hit.jobDescription}</div>
                 </div>
                 <div className="col">
                   <h5 className="">Company</h5>

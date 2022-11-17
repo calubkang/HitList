@@ -4,6 +4,7 @@ import Row from './components/Row'
 import NewItemForm from './components/NewItemForm'
 import RowHeader from './components/RowHeader'
 import loginService from './services/login'
+import userService from './services/users'
 
 
 
@@ -19,6 +20,8 @@ function App() {
   const [newContactName, setContactName] = useState('')
   const [newEmail, setEmail] = useState('')
   const [resume, setResume] = useState('')
+  const [jobDescription, setJobDescription] = useState('')
+  const [name, setName] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -27,12 +30,22 @@ function App() {
   // ON PAGE LOAD
   // --------------------------------------------------
 
+
+
   const hook = () => {
     listService.getAll()
       .then(hitList => setListItems(hitList))
   }
 
-  useEffect(hook, [])
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedHitListUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      listService.setToken(user.token)
+      hook()
+    }
+  }, [])
 
 
   // --------------------------------------------------
@@ -45,23 +58,106 @@ function App() {
   const finishedList = listItems.filter(hit => hit.interviewFinished)
 
   // --------------------------------------------------
-  // LOGIN REQUESTS
+  // LOGIN/SIGNUP REQUESTS
   // --------------------------------------------------
 
-  const handleLogin = async (event) => {
+  const handleSignUp = async (event) => {
     event.preventDefault()
-
     try {
-      const user = await loginService.login({
-        username, password,
-      })
+      const user = await userService.createUser({name, username, password})
+      window.localStorage.setItem(
+        'loggedHitListUser', JSON.stringify(user)
+      )
+      listService.setToken(user.token)
       setUser(user)
+      setName('')
       setUsername('')
       setPassword('')
     } catch {
       
     }
   }
+  
+  const handleLogin = async (event) => {
+    event.preventDefault()
+    try {
+      const user = await loginService.login({
+        username, password,
+      })
+
+      window.localStorage.setItem(
+        'loggedHitListUser', JSON.stringify(user)
+      )
+      listService.setToken(user.token)
+      setUser(user)
+      setUsername('')
+      setPassword('')
+      hook()
+    } catch {
+
+    }
+  }
+
+  const handleLogout = () => {
+    window.localStorage.removeItem('loggedHitListUser')
+    window.location.reload(false)
+  }
+
+  const loginForm = () => (
+    <>
+      <form onSubmit={handleLogin}>
+        <div>
+          username:
+          <input
+            type="text"
+            value={username}
+            name="Username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>
+          password:
+          <input
+            type="password"
+            value={password}
+            name="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+        <button type="submit">login</button>
+      </form>
+      <form onSubmit={handleSignUp}>
+        <div>
+          name:
+          <input
+            type="text"
+            value={name}
+            name="Name"
+            onChange={({ target }) => setName(target.value)}
+          />
+        </div>
+        <div>
+          username:
+          <input
+            type="text"
+            value={username}
+            name="Username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>
+          password:
+          <input
+            type="password"
+            value={password}
+            name="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+        <button type="submit">SignUp</button>
+      </form>
+    </>
+  )
 
   // --------------------------------------------------
   // AXIOS REQUESTS
@@ -126,8 +222,8 @@ function App() {
   }
 
   const addResume = (hit) => (e) => {
-    e.preventDefault()
-    const updatedHit = { ...hit, resume: resume, reachedOut: !hit.reachedOut }
+    console.log(jobDescription);
+    const updatedHit = { ...hit, resume: resume, reachedOut: !hit.reachedOut, jobDescription: jobDescription }
     listService.updateHit(hit, updatedHit)
       .then(updatedHit => {
         setListItems(listItems.map(hit => hit.id !== updatedHit.id ? hit : updatedHit))
@@ -153,38 +249,28 @@ function App() {
   const handleResumeChange = (event) => {
     setResume(event.target.value)
   }
+  const handleJobDescriptionChange = (event) => {
+    setJobDescription(event.target.value)
+  }
 
   // --------------------------------------------------
   // APP LAYOUT
   // --------------------------------------------------
 
-  return (
-    <div className="container">
-
+  const page = () => (
+    <>
+      <ul className="nav justify-content-end">
+        <li className="nav-item">
+          <a className="nav-link active" aria-current="page" href="#">Spread Sheet View</a>
+        </li>
+        <li className="nav-item" >
+          <a className="nav-link" href="#" onClick={handleLogout}>Log Out</a>
+        </li>
+        <li className='nav-item'>
+          <span className='nav-link' style={{color:"black"}} >Hello {user.name}</span> 
+        </li>
+      </ul>
       <h1 className='container mt-3 text-center display-2'>HitList</h1>
-
-      <form onSubmit={handleLogin}>
-        <div>
-          username: 
-          <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-          password: 
-          <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type="submit">login</button>
-      </form>
-
       <div className="accordion" id="accordionExample">
         {/* NEED TO APPLY */}
         <div className="accordion-item">
@@ -210,6 +296,8 @@ function App() {
                       onSubmit={addResume(hit)}
                       resume={resume}
                       handleResumeChange={handleResumeChange}
+                      jobDescription={jobDescription}
+                      handleJobDescriptionChange={handleJobDescriptionChange}
                     />
                   )}
                 </tbody>
@@ -311,7 +399,18 @@ function App() {
         newEmail={newEmail}
         handleEmailChange={handleEmailChange}
       />
+    </>
 
+  )
+
+  return (
+    <div className="container">
+
+
+      {user === null ?
+        loginForm() :
+        page()
+      }
 
     </div>
   );

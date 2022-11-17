@@ -1,14 +1,25 @@
 import axios from 'axios'
 const baseUrl = 'http://localhost:3001/api/hitlist'
 
-const getAll = () => {
-  const request = axios.get(baseUrl)
-  return request.then(response => response.data)
+let token = null
+
+const setToken = newToken => {
+  token = `bearer ${newToken}`
 }
 
-const createHit = (newHit) => {
-  const request = axios.post(baseUrl, newHit)
-  return request.then(response => response.data)
+const getAll = async () => {
+ 
+  const response = await axios.get(baseUrl, {headers: {Authorization: token}})
+  return response.data
+}
+
+const createHit = async newHit => {
+  const config = {
+    headers: {Authorization: token}
+  }
+
+  const response = await axios.post(baseUrl, newHit, config)
+  return response.data
 }
 
 const deleteHit = (hit) => {
@@ -22,5 +33,5 @@ const updateHit = (hit, newObj) => {
 }
 
 
-const listService = {getAll, createHit, deleteHit, updateHit}
+const listService = {getAll, createHit, deleteHit, updateHit, setToken}
 export default listService
