@@ -1,7 +1,8 @@
-const HitModal = ({ hit}) => {
+const HitModal = ({ hit }) => {
   let bsTarget = `#q${hit.id}`
   let id = `q${hit.id}`
   const email = 'no email'
+  const jobDesc = hit.jobDescription.replace(/\n\n/g, "\n").replace(/\n/g, "\n-")
 
   return (
     <td>
@@ -14,14 +15,14 @@ const HitModal = ({ hit}) => {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">{hit.position}</h1>
+              <h2 className="modal-title fs-5" id="exampleModalLabel">{hit.position}</h2>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
               <div className="row">
                 <div className="col-8">
-                  Job Description:
-                  <div>{hit.jobDescription}</div>
+                  <h5>Job Description:</h5>
+                  <div className="css-fix">{jobDesc}</div>
                 </div>
                 <div className="col">
                   <h5 className="">Company</h5>

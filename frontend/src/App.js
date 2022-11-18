@@ -30,8 +30,6 @@ function App() {
   // ON PAGE LOAD
   // --------------------------------------------------
 
-
-
   const hook = () => {
     listService.getAll()
       .then(hitList => setListItems(hitList))

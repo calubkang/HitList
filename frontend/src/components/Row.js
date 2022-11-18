@@ -8,10 +8,10 @@ const Row = (props) => {
         <HitModal hit={props.hit} />
         <td>{props.hit.company}</td>
         <td>{props.hit.position}</td>
-        <td>{props.hit.contact}</td>
-        <td>{props.hit.email}</td>
+        {/* <td>{props.hit.contact}</td>
+        <td>{props.hit.email}</td> */}
         <td className='text-center'><i className="fa-regular fa-file"></i></td>
-        <td>
+        <td className='text-center'>
           <button type="button" className="btn btn-success" data-toggle="modal" data-target="#upload-app-items">
             Apply to Position
           </button>
@@ -36,10 +36,10 @@ const Row = (props) => {
         <HitModal hit={props.hit} />
         <td>{props.hit.company}</td>
         <td>{props.hit.position}</td>
-        <td>{props.hit.contact}</td>
-        <td>{props.hit.email}</td>
+        {/* <td>{props.hit.contact}</td>
+        <td>{props.hit.email}</td> */}
         <td className='text-center'><a href={props.hit.resume} target="_blank"><i className="fas fa-file"></i></a></td>
-        <td><button onClick={props.onUpdate} className="btn btn-primary">{props.updateButtonLabel}</button></td>
+        <td className='text-center'><button onClick={props.onUpdate} className="btn btn-primary">{props.updateButtonLabel}</button></td>
         <td><button onClick={props.onDelete} className="btn btn-close"
           aria-label="Close" /></td>
       </tr>
@@ -50,8 +50,8 @@ const Row = (props) => {
         <HitModal hit={props.hit} />
         <td>{props.hit.company}</td>
         <td>{props.hit.position}</td>
-        <td>{props.hit.contact}</td>
-        <td>{props.hit.email}</td>
+        {/* <td>{props.hit.contact}</td>
+        <td>{props.hit.email}</td> */}
         <td className='text-center'><a href={props.hit.resume} target="_blank"><i className="fas fa-file"></i></a></td>
         <td></td>
         <td><button onClick={props.onDelete} className="btn btn-close"
