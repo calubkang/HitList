@@ -26,6 +26,7 @@ const Row = (props) => {
             resume={props.resume}
             handleJobDescriptionChange={props.handleJobDescriptionChange}
             jobDescription={props.jobDescription}
+            handleCloseModal={props.handleCloseModal}
           />
         </td>
       </tr>
@@ -38,7 +39,7 @@ const Row = (props) => {
         <td>{props.hit.position}</td>
         {/* <td>{props.hit.contact}</td>
         <td>{props.hit.email}</td> */}
-        <td className='text-center'><a href={props.hit.resume} target="_blank"><i className="fas fa-file"></i></a></td>
+        <td className='text-center'><a href={props.hit.resume} rel="noreferrer" target="_blank"><i className="fas fa-file"></i></a></td>
         <td className='text-center'><button onClick={props.onUpdate} className="btn btn-primary">{props.updateButtonLabel}</button></td>
         <td><button onClick={props.onDelete} className="btn btn-close"
           aria-label="Close" /></td>
@@ -52,7 +53,7 @@ const Row = (props) => {
         <td>{props.hit.position}</td>
         {/* <td>{props.hit.contact}</td>
         <td>{props.hit.email}</td> */}
-        <td className='text-center'><a href={props.hit.resume} target="_blank"><i className="fas fa-file"></i></a></td>
+        <td className='text-center'><a href={props.hit.resume} rel="noreferrer" target="_blank"><i className="fas fa-file"></i></a></td>
         <td></td>
         <td><button onClick={props.onDelete} className="btn btn-close"
           aria-label="Close" /></td>

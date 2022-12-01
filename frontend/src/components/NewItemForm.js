@@ -1,4 +1,4 @@
-const NewItemForm = ({ onSubmit, newCompName, handleCompChange, newPos, handlePosChange, newContactName, handleContactChange, newEmail, handleEmailChange, hook }) => {
+const NewItemForm = ({ onSubmit, newCompName, handleCompChange, newPos, handlePosChange, newContactName, handleContactChange, newEmail, handleEmailChange, hook, handleCloseModal }) => {
   return (
     <div>
       <div className="d-grid justify-content-end">
@@ -35,7 +35,7 @@ const NewItemForm = ({ onSubmit, newCompName, handleCompChange, newPos, handlePo
                 <div>
                   <div  className="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="newEntrySubmit" type="submit" className="btn btn-primary" >Save changes</button>
+                    <button id="newEntrySubmit" type="submit" className="btn btn-primary" onClick={handleCloseModal}>Save changes</button>
                   </div>
                 </div>
               </form>

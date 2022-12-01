@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import listService from './services/list'
 import Row from './components/Row'
 import NewItemForm from './components/NewItemForm'
+import UploadAppItems from './components/UploadAppItems'
 import RowHeader from './components/RowHeader'
 import loginService from './services/login'
 import userService from './services/users'
@@ -25,6 +26,7 @@ function App() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [spreadSheetView, setSpreadSheetView] = useState(false)
 
   // --------------------------------------------------
   // ON PAGE LOAD
@@ -45,6 +47,14 @@ function App() {
     }
   }, [])
 
+  // --------------------------------------------------
+  // NAVIGATION
+  // --------------------------------------------------
+
+  const toggleSpreadSheet = () => {
+    setSpreadSheetView(!spreadSheetView)
+    console.log(spreadSheetView)
+  }
 
   // --------------------------------------------------
   // FILTERING BY STATUS
@@ -62,7 +72,7 @@ function App() {
   const handleSignUp = async (event) => {
     event.preventDefault()
     try {
-      const user = await userService.createUser({name, username, password})
+      const user = await userService.createUser({ name, username, password })
       window.localStorage.setItem(
         'loggedHitListUser', JSON.stringify(user)
       )
@@ -71,11 +81,12 @@ function App() {
       setName('')
       setUsername('')
       setPassword('')
+      hook()
     } catch {
-      
+
     }
   }
-  
+
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
@@ -103,57 +114,85 @@ function App() {
 
   const loginForm = () => (
     <>
-      <form onSubmit={handleLogin}>
-        <div>
-          username:
-          <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
+      <h1 className='container mt-3 text-center display-2'>HitList</h1>
+      <div className="d-flex justify-content-center">
+        <div className="card" style={{ width: 300 }}>
+          <div className="card-body">
+            <form onSubmit={handleLogin}>
+              <h3 className='mb-3'>Login</h3>
+              <div className='input-group mb-3'>
+                <input
+                  placeholder='username'
+                  type="text"
+                  value={username}
+                  name="Username"
+                  onChange={({ target }) => setUsername(target.value)}
+                />
+              </div>
+              <div className='input-group mb-3'>
+                <input
+                  placeholder='password'
+                  type="password"
+                  value={password}
+                  name="Password"
+                  onChange={({ target }) => setPassword(target.value)}
+                />
+              </div>
+              <button className='btn-primary btn mb-3' type="submit">login</button>
+            </form>
+            <p>Don't have an Account? <span className='blue' data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</span></p>
+          </div>
         </div>
-        <div>
-          password:
-          <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
+      </div>
+
+
+      <div className="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <form onSubmit={handleSignUp}>
+                <div>
+                  name:
+                  <input
+                    type="text"
+                    value={name}
+                    name="Name"
+                    onChange={({ target }) => setName(target.value)}
+                  />
+                </div>
+                <div>
+                  username:
+                  <input
+                    type="text"
+                    value={username}
+                    name="Username"
+                    onChange={({ target }) => setUsername(target.value)}
+                  />
+                </div>
+                <div>
+                  password:
+                  <input
+                    type="password"
+                    value={password}
+                    name="Password"
+                    onChange={({ target }) => setPassword(target.value)}
+                  />
+                </div>
+                <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" className="btn btn-primary" onClick={handleCloseModalSignUp}>Save changes</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
         </div>
-        <button type="submit">login</button>
-      </form>
-      <form onSubmit={handleSignUp}>
-        <div>
-          name:
-          <input
-            type="text"
-            value={name}
-            name="Name"
-            onChange={({ target }) => setName(target.value)}
-          />
-        </div>
-        <div>
-          username:
-          <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-          password:
-          <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type="submit">SignUp</button>
-      </form>
+      </div>
+
     </>
   )
 
@@ -220,12 +259,13 @@ function App() {
   }
 
   const addResume = (hit) => (e) => {
-    console.log(jobDescription);
+    e.preventDefault()
     const updatedHit = { ...hit, resume: resume, reachedOut: !hit.reachedOut, jobDescription: jobDescription }
     listService.updateHit(hit, updatedHit)
       .then(updatedHit => {
         setListItems(listItems.map(hit => hit.id !== updatedHit.id ? hit : updatedHit))
       })
+    return false
   }
 
   // --------------------------------------------------
@@ -250,22 +290,37 @@ function App() {
   const handleJobDescriptionChange = (event) => {
     setJobDescription(event.target.value)
   }
+  function handleCloseModalFileUpload() {
+    document.getElementById("upload-app-items").classList.remove("show", "d-block");
+    document.querySelectorAll(".modal-backdrop")
+      .forEach(el => el.classList.remove("modal-backdrop"));
+  }
+  function handleCloseModalNewEntry() {
+    document.getElementById("new-entry").classList.remove("show", "d-block");
+    document.querySelectorAll(".modal-backdrop")
+      .forEach(el => el.classList.remove("modal-backdrop"));
+  }
+  function handleCloseModalSignUp() {
+    document.getElementById("signUpModal").classList.remove("show", "d-block");
+    document.querySelectorAll(".modal-backdrop")
+      .forEach(el => el.classList.remove("modal-backdrop"));
+  }
 
   // --------------------------------------------------
   // APP LAYOUT
   // --------------------------------------------------
 
-  const page = () => (
+  const accordionLayout = () => (
     <>
       <ul className="nav justify-content-end">
         <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="#">Spread Sheet View</a>
+          <span className="nav-link active" aria-current="page" onClick={toggleSpreadSheet}>Spread Sheet View</span>
         </li>
         <li className="nav-item" >
-          <a className="nav-link" href="#" onClick={handleLogout}>Log Out</a>
+          <span className="nav-link" onClick={handleLogout}>Log Out</span>
         </li>
         <li className='nav-item'>
-          <span className='nav-link' style={{color:"black"}} >Hello {user.name}</span> 
+          <span className='nav-link' style={{ color: "black" }} >Hello {user.name}</span>
         </li>
       </ul>
       <h1 className='container mt-3 text-center display-2'>HitList</h1>
@@ -296,6 +351,7 @@ function App() {
                       handleResumeChange={handleResumeChange}
                       jobDescription={jobDescription}
                       handleJobDescriptionChange={handleJobDescriptionChange}
+                      handleCloseModal={handleCloseModalFileUpload}
                     />
                   )}
                 </tbody>
@@ -396,10 +452,181 @@ function App() {
         handleContactChange={handleContactChange}
         newEmail={newEmail}
         handleEmailChange={handleEmailChange}
+        handleCloseModal={handleCloseModalNewEntry}
       />
     </>
-
   )
+
+  // --------------------------------------------------
+  // SPREADSHEET LAYOUT
+  // --------------------------------------------------
+
+  const spreadSheetLayout = () => (
+    <>
+      <ul className="nav justify-content-end">
+        <li className="nav-item">
+          <span className="nav-link active" aria-current="page" onClick={toggleSpreadSheet}>Home</span>
+        </li>
+      </ul>
+      <table className="table">
+        <thead>
+          <tr>
+
+            <th scope="col">Company</th>
+            <th scope="col">Position</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Contact Email</th>
+            <th scope="col">Resume</th>
+            <th scope="col">Job Description</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {firstList.map(hit => (
+            <tr className='firstList'>
+              <td>{hit.company}</td>
+              <td>{hit.position}</td>
+              <td>{hit.contact}</td>
+              <td>{hit.email}</td>
+              <td className='text-center'><i className="fa-regular fa-file"></i></td>
+              <td className='text-center'><i className="fa-regular fa-file"></i></td>
+              <td>
+                <td className='text-center'>
+                  <button type="button" className="btn btn-success" data-toggle="modal" data-target="#upload-app-items">
+                    Apply to Position
+                  </button>
+                </td>
+                <UploadAppItems
+                  onSubmit={addResume(hit)}
+                  handleResumeChange={handleResumeChange}
+                  resume={resume}
+                  handleJobDescriptionChange={handleJobDescriptionChange}
+                  jobDescription={jobDescription}
+                  handleCloseModal={handleCloseModalFileUpload}
+                /></td>
+            </tr>
+          ))}
+          {reachedList.map(hit => {
+            let bsTarget = `#q${hit.id}`
+            let id = `q${hit.id}`
+            return (
+              <tr className='reachedList'>
+                <td>{hit.company}</td>
+                <td>{hit.position}</td>
+                <td>{hit.contact}</td>
+                <td>{hit.email}</td>
+                <td className='text-center'>
+                  <a href={hit.resume} rel="noreferrer" target="_blank"><i className="fas fa-file"></i></a>
+                </td>
+                <td className='text-center'>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={bsTarget}>
+                    view
+                  </button>
+                  <div class="modal fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          {hit.jobDescription}
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td><button onClick={()=> toggleInterview(hit)} className="btn btn-primary">Got and Interview!</button></td>
+              </tr>
+            )
+          })}
+          {interviewList.map(hit => {
+            let bsTarget = `#q${hit.id}`
+            let id = `q${hit.id}`
+            return (
+              <tr className='interviewList'>
+                <td>{hit.company}</td>
+                <td>{hit.position}</td>
+                <td>{hit.contact}</td>
+                <td>{hit.email}</td>
+                <td className='text-center'>
+                  <a href={hit.resume} rel="noreferrer" target="_blank"><i className="fas fa-file"></i></a>
+                </td>
+                <td className='text-center'>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={bsTarget}>
+                    view
+                  </button>
+                  <div class="modal fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          {hit.jobDescription}
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td><button onClick={() => finishInterview(hit)} className="btn btn-primary">Finished Interviews!</button></td>
+              </tr>
+            )
+          })}
+          {finishedList.map(hit => {
+            let bsTarget = `#q${hit.id}`
+            let id = `q${hit.id}`
+            return (
+              <tr className='finishedList'>
+                <td>{hit.company}</td>
+                <td>{hit.position}</td>
+                <td>{hit.contact}</td>
+                <td>{hit.email}</td>
+                <td className='text-center'>
+                  <a href={hit.resume} rel="noreferrer" target="_blank"><i className="fas fa-file"></i></a>
+                </td>
+                <td className='text-center'>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={bsTarget}>
+                    view
+                  </button>
+                  <div class="modal fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          {hit.jobDescription}
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </>
+  )
+
+  // --------------------------------------------------
+  // APP 
+  // --------------------------------------------------
 
   return (
     <div className="container">
@@ -407,7 +634,7 @@ function App() {
 
       {user === null ?
         loginForm() :
-        page()
+        spreadSheetView ? spreadSheetLayout() : accordionLayout()
       }
 
     </div>

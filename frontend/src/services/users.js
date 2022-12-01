@@ -11,4 +11,6 @@ const createUser = async (newUserInfo) => {
   return response.data
 }
 
-export default { getUser, createUser }
+const userService = {getUser, createUser}
+
+export default userService

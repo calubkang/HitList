@@ -20,11 +20,11 @@ const HitModal = ({ hit }) => {
             </div>
             <div className="modal-body">
               <div className="row">
-                <div className="col-8">
+                <div className="col-7">
                   <h5>Job Description:</h5>
                   <div className="css-fix">{jobDesc}</div>
                 </div>
-                <div className="col">
+                <div className="col-3">
                   <h5 className="">Company</h5>
                   <div>{hit.company}</div>
                   <h5 className="mt-4">Position</h5>
@@ -33,7 +33,7 @@ const HitModal = ({ hit }) => {
                   <div>{hit.contact}</div>
                   <div>{hit.email || email}</div>
                   <h5 className="mt-4">Resume</h5>
-                  <h2><a href={hit.resume} target="_blank"><i className="fas fa-file"></i></a></h2>
+                  <h2><a href={hit.resume} target="_blank" rel="noreferrer"><i className="fas fa-file"></i></a></h2>
                 </div>
               </div>
             </div>

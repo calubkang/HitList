@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
+const jwt = require("jsonwebtoken");
 const User = require('../models/user')
 
 usersRouter.get('/', async (request, response) => {
@@ -42,7 +43,7 @@ usersRouter.post('/', async (request, response) => {
   const token = jwt.sign(
     userForToken,
     process.env.SECRET,
-    { expiresIn: 60 * 60 }
+    {}
   )
 
   const savedUser = await user.save()
