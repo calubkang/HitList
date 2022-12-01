@@ -116,7 +116,7 @@ function App() {
     <>
       <h1 className='container mt-3 text-center display-2'>HitList</h1>
       <div className="d-flex justify-content-center">
-        <div className="card" style={{ width: 300 }}>
+        <div className="card" style={{ width: 400 }}>
           <div className="card-body">
             <form onSubmit={handleLogin}>
               <h3 className='mb-3'>Login</h3>
@@ -138,7 +138,10 @@ function App() {
                   onChange={({ target }) => setPassword(target.value)}
                 />
               </div>
-              <button className='btn-primary btn mb-3' type="submit">login</button>
+              <div className='mb-3'>
+                <button className='btn-primary btn mr-5' type="submit">login</button>
+              </div>
+
             </form>
             <p>Don't have an Account? <span className='blue' data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</span></p>
           </div>
@@ -150,32 +153,32 @@ function App() {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <h1 className="modal-title fs-5" id="exampleModalLabel">Sign Up</h1>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
               <form onSubmit={handleSignUp}>
-                <div>
-                  name:
+                <div className='input-group mb-3'>
                   <input
+                    placeholder='name'
                     type="text"
                     value={name}
                     name="Name"
                     onChange={({ target }) => setName(target.value)}
                   />
                 </div>
-                <div>
-                  username:
+                <div className='input-group mb-3'>                  
                   <input
+                    placeholder='username'
                     type="text"
                     value={username}
                     name="Username"
                     onChange={({ target }) => setUsername(target.value)}
                   />
                 </div>
-                <div>
-                  password:
+                <div className='input-group mb-3'>
                   <input
+                  placeholder='password'
                     type="password"
                     value={password}
                     name="Password"
@@ -264,7 +267,9 @@ function App() {
     listService.updateHit(hit, updatedHit)
       .then(updatedHit => {
         setListItems(listItems.map(hit => hit.id !== updatedHit.id ? hit : updatedHit))
-      })
+      });
+    setResume('')
+    setJobDescription('')
     return false
   }
 
@@ -518,29 +523,28 @@ function App() {
                 <td className='text-center'>
                   <a href={hit.resume} rel="noreferrer" target="_blank"><i className="fas fa-file"></i></a>
                 </td>
-                <td className='text-center'>
+                <td>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={bsTarget}>
                     view
                   </button>
-                  <div class="modal fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal modal-lg fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Job Description</h1>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                          {hit.jobDescription}
+                        <div class="modal-body css-fix">
+                          {hit.jobDescription.replace(/\n\n/g, "\n").replace(/\n/g, "\n-")}
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                       </div>
                     </div>
                   </div>
                 </td>
-                <td><button onClick={()=> toggleInterview(hit)} className="btn btn-primary">Got and Interview!</button></td>
+                <td><button onClick={() => toggleInterview(hit)} className="btn btn-primary">Got and Interview!</button></td>
               </tr>
             )
           })}
@@ -556,23 +560,22 @@ function App() {
                 <td className='text-center'>
                   <a href={hit.resume} rel="noreferrer" target="_blank"><i className="fas fa-file"></i></a>
                 </td>
-                <td className='text-center'>
+                <td>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={bsTarget}>
                     view
                   </button>
-                  <div class="modal fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal modal-lg fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Job Description</h1>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                          {hit.jobDescription}
+                        <div class="modal-body css-fix">
+                          {hit.jobDescription.replace(/\n\n/g, "\n").replace(/\n/g, "\n-")}
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                       </div>
                     </div>
@@ -594,33 +597,45 @@ function App() {
                 <td className='text-center'>
                   <a href={hit.resume} rel="noreferrer" target="_blank"><i className="fas fa-file"></i></a>
                 </td>
-                <td className='text-center'>
+                <td>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={bsTarget}>
                     view
                   </button>
-                  <div class="modal fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal modal-lg fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Job Description</h1>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                          {hit.jobDescription}
+                        <div class="modal-body css-fix">
+                          {hit.jobDescription.replace(/\n\n/g, "\n").replace(/\n/g, "\n-")}
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                       </div>
                     </div>
                   </div>
                 </td>
+
               </tr>
             )
           })}
         </tbody>
       </table>
+      <NewItemForm
+        onSubmit={addHit}
+        newCompName={newCompName}
+        handleCompChange={handleCompChange}
+        newPos={newPos}
+        handlePosChange={handlePosChange}
+        newContactName={newContactName}
+        handleContactChange={handleContactChange}
+        newEmail={newEmail}
+        handleEmailChange={handleEmailChange}
+        handleCloseModal={handleCloseModalNewEntry}
+      />
     </>
   )
 
