@@ -319,9 +319,9 @@ function App() {
     <>
       <ul className="nav justify-content-end">
         <li className="nav-item">
-          <span className="nav-link active" aria-current="page" onClick={toggleSpreadSheet}>Spread Sheet View</span>
+          <span className="nav-link active link" aria-current="page" onClick={toggleSpreadSheet}>Spread Sheet View</span>
         </li>
-        <li className="nav-item" >
+        <li className="nav-item link" >
           <span className="nav-link" onClick={handleLogout}>Log Out</span>
         </li>
         <li className='nav-item'>
@@ -335,7 +335,7 @@ function App() {
           {/* Header */}
           <h2 className="accordion-header" id="headingOne">
             <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Need to Apply ({firstList.length})
+              Need to Apply <span class="badge text-bg-secondary m-2">{firstList.length}</span>
             </button>
           </h2>
           <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -369,7 +369,7 @@ function App() {
           {/* Header */}
           <h2 className="accordion-header" id="headingTwo">
             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Waiting to hear back ({reachedList.length})
+              Waiting to hear back <span class="badge text-bg-secondary m-2">{reachedList.length}</span>
             </button>
           </h2>
           <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -397,7 +397,7 @@ function App() {
           {/* Header */}
           <h2 className="accordion-header" id="headingThree">
             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              Interview Prep ({interviewList.length})
+              Interview Prep <span class="badge text-bg-secondary m-2">{interviewList.length}</span>
             </button>
           </h2>
           <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
@@ -425,7 +425,7 @@ function App() {
           {/* Header */}
           <h2 className="accordion-header" id="headingFour">
             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-              Waiting for Final Decision ({finishedList.length})
+              Waiting for Final Decision <span class="badge text-bg-secondary m-2">{finishedList.length}</span>
             </button>
           </h2>
           <div id="collapseFour" className="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
@@ -470,7 +470,7 @@ function App() {
     <>
       <ul className="nav justify-content-end">
         <li className="nav-item">
-          <span className="nav-link active" aria-current="page" onClick={toggleSpreadSheet}>Home</span>
+          <span className="nav-link active link" aria-current="page" onClick={toggleSpreadSheet}>Home</span>
         </li>
       </ul>
       <table className="table">
@@ -523,7 +523,7 @@ function App() {
                 <td className='text-center'>
                   <a href={hit.resume} rel="noreferrer" target="_blank"><i className="fas fa-file"></i></a>
                 </td>
-                <td>
+                <td className='text-center'>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={bsTarget}>
                     view
                   </button>
@@ -560,7 +560,7 @@ function App() {
                 <td className='text-center'>
                   <a href={hit.resume} rel="noreferrer" target="_blank"><i className="fas fa-file"></i></a>
                 </td>
-                <td>
+                <td className='text-center'>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={bsTarget}>
                     view
                   </button>
@@ -597,7 +597,7 @@ function App() {
                 <td className='text-center'>
                   <a href={hit.resume} rel="noreferrer" target="_blank"><i className="fas fa-file"></i></a>
                 </td>
-                <td>
+                <td className='text-center'>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target={bsTarget}>
                     view
                   </button>
@@ -618,7 +618,26 @@ function App() {
                     </div>
                   </div>
                 </td>
+                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gotTheJob">
+                  GOT THE JOB
+                </button>
 
+                  <div class="modal fade" id="gotTheJob" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Congratulations</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          You did it. You got the job. Don't mess this up.
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div></td>
               </tr>
             )
           })}

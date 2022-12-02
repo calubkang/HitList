@@ -22,3 +22,7 @@
 .finishedList {
   background-color: rgb(241, 188, 188);
 }
+
+.link:hover {
+  cursor: pointer;
+}
