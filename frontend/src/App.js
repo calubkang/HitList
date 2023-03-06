@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import listService from './services/list'
 import Row from './components/Row'
 import NewItemForm from './components/NewItemForm'
 import UploadAppItems from './components/UploadAppItems'
 import RowHeader from './components/RowHeader'
+import NavItem from './components/NavItem'
+import listService from './services/list'
 import loginService from './services/login'
 import userService from './services/users'
 
@@ -53,7 +54,6 @@ function App() {
 
   const toggleSpreadSheet = () => {
     setSpreadSheetView(!spreadSheetView)
-    console.log(spreadSheetView)
   }
 
   // --------------------------------------------------
@@ -318,18 +318,35 @@ function App() {
   const accordionLayout = () => (
     <>
       <ul className="nav justify-content-end">
-        <li className="nav-item">
-          <span className="nav-link active link" aria-current="page" onClick={toggleSpreadSheet}>Spread Sheet View</span>
-        </li>
-        <li className="nav-item link" >
-          <span className="nav-link" onClick={handleLogout}>Log Out</span>
-        </li>
-        <li className='nav-item'>
-          <span className='nav-link' style={{ color: "black" }} >Hello {user.name}</span>
-        </li>
+        <NavItem
+          link='link'
+          onClick={toggleSpreadSheet}
+          text='Spread Sheet View'
+        />
+        <NavItem
+          link='link'
+          onClick={handleLogout}
+          text='Log Out'
+        />
+        <NavItem 
+          style={{ color: "black" }}
+          text={'Hello ' + user.name}
+        />
       </ul>
-      <h1 className='container mt-3 text-center display-2'>HitList</h1>
-      <div className="accordion" id="accordionExample">
+      <h1 className='container mt-2 text-center display-2'>HitList</h1>
+      <NewItemForm
+        onSubmit={addHit}
+        newCompName={newCompName}
+        handleCompChange={handleCompChange}
+        newPos={newPos}
+        handlePosChange={handlePosChange}
+        newContactName={newContactName}
+        handleContactChange={handleContactChange}
+        newEmail={newEmail}
+        handleEmailChange={handleEmailChange}
+        handleCloseModal={handleCloseModalNewEntry}
+      />
+      <div className="accordion mt-4" id="accordionExample">
         {/* NEED TO APPLY */}
         <div className="accordion-item">
           {/* Header */}
@@ -447,18 +464,6 @@ function App() {
           </div>
         </div>
       </div>
-      <NewItemForm
-        onSubmit={addHit}
-        newCompName={newCompName}
-        handleCompChange={handleCompChange}
-        newPos={newPos}
-        handlePosChange={handlePosChange}
-        newContactName={newContactName}
-        handleContactChange={handleContactChange}
-        newEmail={newEmail}
-        handleEmailChange={handleEmailChange}
-        handleCloseModal={handleCloseModalNewEntry}
-      />
     </>
   )
 

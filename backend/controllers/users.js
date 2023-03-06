@@ -13,8 +13,8 @@ usersRouter.get('/', async (request, response) => {
     interviewScheduled: 1,
     interviewFinished: 1,
     resume: 1,
-})
-  response.json(users) 
+}) 
+  response.json(users)  
 })
 
 usersRouter.post('/', async (request, response) => {
