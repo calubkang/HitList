@@ -4,7 +4,7 @@ Streamline your job search process
 
 ## Backstory
 
- As someone who struggles to find a software engineer position in this market, I wanted to create an app that would help me keep track of every application I've sent out in a way that allows me to focus on my studies instead of the job hunt. With around a hundred applications and a specifically tailored resume for each application, I needed a way to organize all of my files including my resumes and respective job descriptions. Not only did I need to organize my files, I wanted to keep track of the status of each application (Not yet applied, applied, interview scheduled, interviews finished, etc) so I know which applications to prioritize and which resumes/job descriptions to focus on during my interview preparations. With that, HitList was created.
+ As someone who struggled and continues to struggle to find a software engineer position in this market, I wanted to create an app that would help me keep track of every application I've sent out in a way that allows me to focus on my studies instead of the job hunt. With around a hundred applications and a specifically tailored resume for each application, I needed a way to organize all of my files including my resumes and respective job descriptions. Not only did I need to organize my files, I needed to keep track of the status of each application (Not yet applied, applied, interview scheduled, interviews finished, etc) in order to determine which applications to prioritize and which resumes/job descriptions to focus on during my interview preparations. With that, HitList was created.
 
  ## Description
 
