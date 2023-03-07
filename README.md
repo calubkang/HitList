@@ -13,9 +13,9 @@ Streamline your job search process
 ## Things to Add/Update
 
   ### Make the Job Description window more readable
-    - Currently have HitModal.js line 5 as: ```const jobDesc = hit.jobDescription.replace(/\n\n/g, "\n").replace(/\n/g, "\n-")```
-    - With the current code, First line (Job Description) is not bulleted, which is good. But the next title (could be 'Qualifications', 'What You'll Bring', etc) is also bulleted. Need to find a way to bullet everything expect titles. A plus would be to bold the titles.
-    - Easy fix would be to just link the job application as a whole instead of having the user copy and paste the job description.
+  * Currently have HitModal.js line 5 as: ```const jobDesc = hit.jobDescription.replace(/\n\n/g, "\n").replace(/\n/g, "\n-")```
+  * With the current code, First line (Job Description) is not bulleted, which is good. But the next title (could be 'Qualifications', 'What You'll Bring', etc) is also bulleted. Need to find a way to bullet everything expect titles. A plus would be to bold the titles.
+  * Easy fix would be to just link the job application as a whole instead of having the user copy and paste the job description.
 
   ### Spread Sheet view needs better indicators for categories. 
     - Can add a legend for the colors
