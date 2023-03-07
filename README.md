@@ -18,9 +18,9 @@ Streamline your job search process
   * Easy fix would be to just link the job application as a whole instead of having the user copy and paste the job description.
 
   ### Spread Sheet view needs better indicators for categories. 
-    - Can add a legend for the colors
-    - Can include cattegory name on left most column
+  * Can add a legend for the colors
+  * Can include cattegory name on left most column
 
   ### Add Date of Submission
-    - Still debating if this information would be necessary in the rows, or if it should be included only in the pop-out window. 
+  * Still debating if this information would be necessary in the rows, or if it should be included only in the pop-out window. 
 
