@@ -11,9 +11,8 @@
 ## Setup and Launch
 
 * Clone the repository into a folder for backend
-* Run ```npm install```
-
-### `npm start`
+* Run  ```npm install```
+* Run  ```npm start```
 
 
 
