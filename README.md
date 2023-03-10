@@ -1,14 +1,24 @@
 # HitList
 
-Streamline your job search process
+All of your job search resources in one place
 
-## Backstory
+## Motivation
 
  As someone who struggled and continues to struggle to find a software engineer position in this market, I wanted to create an app that would help me keep track of every application I've sent out in a way that allows me to focus on my studies instead of the job hunt. Before HitList, all of my tailored resumes were scattered around in my downloads folder and every time I would get an interview, I would have to visit the company website and search for the specific job posting to review it. With around a hundred applications and a specifically tailored resume for each application, I needed a way to organize all of my files including my resumes and respective job descriptions. Not only did I need to organize my files, I needed to keep track of the status of each application (Not yet applied, applied, interview scheduled, interviews finished, etc) in order to determine which applications to prioritize and which resumes/job descriptions to focus on during my interview preparations. With that, HitList was created.
 
  ## Description
 
  HitList is a full-stack web app that utilizes React, Bootstrap, and Axios for client side and Node.js, Express, and MongoDB for server side. The user begins by creating a profile. Once logged in, the user can input the details of a job opening (Company, Position, Point of Contact, Contact's email). Once the user applies for that position, there is an option for uploading a resume and job description. Once uploaded, the position is moved from 'Need to apply' to 'Waiting to Hear Back'. Once the user receives a response from the company, the user can either click 'Got the Interview', which would move the application to the 'Interview Prep' category, or delete the application depending on the company's decision. After the interviews are finished, the user can click 'Finished Interviews' and the application will be moved to the 'Waiting for final decision' category. The most helpful part of Hitlist for me was the 'Interview Prep' category and having all my materials ready at the click of a mouse. With the aesthetic and straightforward nature of HitList, users can feel at ease even while juggling hundreds of job applications knowing that they'll have all of their important resources in a single, organized space.
+
+ ## Features
+
+ HitList includes the following features:
+
+ * Ability to add and track job applications
+ * File organization for resumes and job descriptions
+ * Status tracking for each application (not yet applied, applied, interview scheduled, interviews finished, etc.)
+ * Prioritization of applications based on status
+ * User authentication
 
 ## Things to Add/Update
 
@@ -24,3 +34,15 @@ Streamline your job search process
   ### Add Date of Submission
   * Still debating if this information would be necessary in the rows, or if it should be included only in the pop-out window. 
 
+## Contributing
+
+Contributions to HitList are welcome. To contribute, follow these steps:
+
+1. Fork this repository.
+2. Create a branch: git checkout -b BRANCH_NAME.
+3. Make your changes and commit them: git commit -m 'YOUR_MESSAGE'.
+4. Push to the original branch: git push origin BRANCH_NAME.
+5. Create a pull request.
+
+## License
+HitList is licensed under the MIT License.
