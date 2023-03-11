@@ -39,9 +39,9 @@ All of your job search resources in one place
 Contributions to HitList are welcome. To contribute, follow these steps:
 
 1. Fork this repository.
-2. Create a branch: git checkout -b BRANCH_NAME.
-3. Make your changes and commit them: git commit -m 'YOUR_MESSAGE'.
-4. Push to the original branch: git push origin BRANCH_NAME.
+2. Create a branch: `git checkout -b BRANCH_NAME`
+3. Make your changes and commit them: `git commit -m 'YOUR_MESSAGE'`
+4. Push to the original branch: `git push origin BRANCH_NAME`
 5. Create a pull request.
 
 ## License
