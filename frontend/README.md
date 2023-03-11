@@ -6,11 +6,11 @@ This is the frontend for HitList, an application designed to help job seekers ke
 
 The frontend of HitList communicates with a backend server using HTTP requests. Specifically, it uses the axios library to send HTTP requests to the backend API. The frontend interacts with the backend through the services folder, which contains modules that define functions for sending requests to the API. These functions abstract away the details of making HTTP requests, and provide a simplified interface for the frontend to interact with the backend.
 
-## Technologies
+## Technologies/Libraries
 
-* BootStrap 5.2.2
 * React 18.2.0
 * Axios 1.1.3
+* BootStrap 5.2.2
 
 ## Frontend/Backend Communication
 
