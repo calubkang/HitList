@@ -20,6 +20,23 @@ All of your job search resources in one place
  * Prioritization of applications based on status
  * User authentication
 
+ ## Technology Stack
+
+The HitList application uses the following technologies:
+
+### Front-end
+
+- React
+- Axios
+- BootStrap
+
+### Back-end
+
+- Node.js
+- Express
+- Mongoose
+- MongoDB
+
 ## Things to Add/Update
 
   ### Make the Job Description window more readable
