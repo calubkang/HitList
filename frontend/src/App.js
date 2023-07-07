@@ -350,7 +350,7 @@ function App() {
         {/* NEED TO APPLY */}
         <div className="accordion-item">
           {/* Header */}
-          <h2 className="accordion-header" id="headingOne">
+          <h2 className="accordion-header" id="headingOne"> 
             <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               Need to Apply <span class="badge text-bg-secondary m-2">{firstList.length}</span>
             </button>
@@ -361,7 +361,7 @@ function App() {
                 <tbody>
                   <RowHeader />
                   {firstList.map(hit =>
-                    <Row
+                     <Row
                       key={hit.id}
                       hit={hit}
                       onDelete={() => deleteHit(hit)}
