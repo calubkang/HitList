@@ -28,7 +28,7 @@ mongoose.connect(url)
 app.use('/api/hitlist', hitsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
-
+app.get('/', function (req, res) { })
 
 
 const PORT = process.env.PORT
