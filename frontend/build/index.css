@@ -1,0 +1,28 @@
+.css-fix {
+  white-space: pre-wrap;
+  font-size: 12px;
+}
+
+.blue {
+  color: rgb(36, 98, 255);
+}
+
+.firstList {
+  background-color: rgb(195, 230, 184);
+}
+
+.reachedList {
+  background-color: rgb(166, 210, 232);
+}
+
+.interviewList {
+  background-color: rgb(238, 221, 182);
+}
+
+.finishedList {
+  background-color: rgb(241, 188, 188);
+}
+
+.link:hover {
+  cursor: pointer;
+}
